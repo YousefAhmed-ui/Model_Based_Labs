@@ -1,0 +1,32 @@
+CC     = "C:\Program Files\MATLAB\R2018a\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "C:\Program Files\MATLAB\R2018a\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "C:\Program Files\MATLAB\R2018a\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -nodeclspec 
+LDFLAGS = -s -dll -L"C:\Program Files\MATLAB\R2018a\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"last_sfun.obj"\
+	"c1_last.obj"\
+	"last_sfun_registry.obj"\
+	"led.obj"\
+	"lccstub.obj"\
+	"c_mexapi_version.obj"\
+
+INCLUDE_PATH= -I"C:\Program Files\MATLAB\R2018a\extern\include"  -I"C:\Program Files\MATLAB\R2018a\simulink\include"  -I"C:\Program Files\MATLAB\R2018a\simulink\include\sf_runtime"  -I"C:\Program Files\MATLAB\R2018a\stateflow\c\mex\include"  -I"C:\Program Files\MATLAB\R2018a\rtw\c\src"  -I"F:\Simulink\zxcvbno\slprj\_sfprj\last\_self\sfun\src"  -I"F:\Simulink\zxcvbno"  -I"C:\Program Files\MATLAB\R2018a\sys\lcc64\lcc64\include64" 
+ 
+
+last_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o last_sfun.mexw64 @last_sfun.lmko
+last_sfun.obj :	"last_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "last_sfun.c"
+c1_last.obj :	"c1_last.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c1_last.c"
+last_sfun_registry.obj :	"last_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "last_sfun_registry.c"
+led.obj :	"F:\Simulink\zxcvbno\led.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "F:\Simulink\zxcvbno\led.c"
+lccstub.obj :	"C:\Program Files\MATLAB\R2018a\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2018a\sys\lcc64\lcc64\mex\lccstub.c"
+c_mexapi_version.obj :	"C:\Program Files\MATLAB\R2018a\extern\version\c_mexapi_version.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2018a\extern\version\c_mexapi_version.c"
